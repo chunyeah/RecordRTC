@@ -41,7 +41,7 @@ function captureMicrophone(callback) {
 
     navigator.mediaDevices.getUserMedia({
         audio: isEdge ? true : {
-            echoCancellation: true
+            echoCancellation: false
         }
     }).then(function(mic) {
         callback(mic);
@@ -68,8 +68,14 @@ function replaceAudio(src) {
 }
 
 function stopRecordingCallback() {
+
     replaceAudio(URL.createObjectURL(recorder.getBlob()));
 
+    if(recorder) {
+        recorder.destroy();
+        recorder = null;
+    }
+    
     btnStartRecording.disabled = false;
 
     setTimeout(function() {
@@ -87,7 +93,7 @@ function stopRecordingCallback() {
 
     btnDownloadRecording.disabled = false;
 
-    if(isSafari) {
+    if(isSafari) {  
         click(btnReleaseMicrophone);
     }
 }
