@@ -41,7 +41,7 @@ function captureMicrophone(callback) {
 
     navigator.mediaDevices.getUserMedia({
         audio: isEdge ? true : {
-            echoCancellation: false
+            echoCancellation: true
         }
     }).then(function(mic) {
         callback(mic);
