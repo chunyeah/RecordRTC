@@ -71,11 +71,16 @@ function stopRecordingCallback() {
 
     replaceAudio(URL.createObjectURL(recorder.getBlob()));
 
+    if(microphone) {
+        microphone.stop();
+        microphone = null;
+    }
+
     if(recorder) {
         recorder.destroy();
         recorder = null;
     }
-    
+
     btnStartRecording.disabled = false;
 
     setTimeout(function() {
